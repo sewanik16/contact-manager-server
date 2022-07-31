@@ -33,7 +33,7 @@ const contactSchema = new mongoose.Schema({
           required: true,
         },
       }],
-      userId: { type: mongoose.Schema.Types.ObjectId, ref: userModel }
+      username: String 
 })
 
 const contactsModel = mongoose.model("contacts",contactSchema)
