@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.listen(process.env.PORT || 5000,()=>{
+app.listen(5000,()=>{
     console.log("server running at port : 5000")
 })
 // const DB = "mongodb+srv://admin:admin1234@contactsmanager.p83t7et.mongodb.net/contactsManager?retryWrites=true&w=majority"

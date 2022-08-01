@@ -29,11 +29,12 @@ router.get("/",(req,res)=>{
 
 
 router.post("/add",(req,res)=>{
+    
     try{
         const user = jwt.verify(req.headers.authorization,process.env.SECRET_KEY)
         
         userModel.find({username:user.username}).then((userData)=>{
-          
+         console.log(req.body)
             if(userData.length){
                 contactsModel.create({contact:req.body,username:user.username}).then(()=>{
                     res.status(200).send("Data Added")
