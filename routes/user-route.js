@@ -9,6 +9,7 @@ router.post("/signup",(req,res)=>{
     userModel.find({username:req.body.username}).then((user)=>{
         if(user.length){
             res.status(400).send("Username already Exist!")
+            console.log("Username already Exist!")
         }else{
           let salt = 10;
           bcryptjs.genSalt(salt).then((saltvalue)=>{
@@ -29,20 +30,30 @@ router.post("/signup",(req,res)=>{
 })
 
 router.post("/login",(req,res)=>{
+  // console.log(req.body)
+  
     userModel.find({username:req.body.username}).then(async (user)=>{
+      
         if(user.length){
+          
            const value = await bcryptjs.compare(req.body.password,user[0].password)
+           
            if(value){
             const jwtToken = jwt.sign({username:req.body.username},process.env.SECRET_KEY)
-            res.status(200).send({authToken : jwtToken})
+            res.status(200).send({authorization : jwtToken})
+            // console.log("hi")
+            // console.log(jwtToken)
            }else{
             res.status(400).send("Invalid Password")
+            console.log("invalid password")
            }
         }else{
             res.status(400).send("User Not Exist")
+            console.log("user not exist")
         }
     }).catch((err)=>{
         res.status(400).send("err: "+ err.message)
+        console.log("user not registered...")
     })
 })
 
